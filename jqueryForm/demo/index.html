@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="javascript:void(0)" class="j_upLoadFile">上传图片</a>
+    <form action="接口名字" method="post" enctype="multipart/form-data" id="submitForm">
+        <!-- 随文件一起上传的字段 -->
+        <input type="hidden" name="type" value="temp">
+        <input type="file" name="pic_name" style="display: none" class="j_file">
+    </form>
+
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/jquery.form.min.js"></script>
+    <script>
+        //点击上传图片
+        $('.j_upLoadFile').click(function(){
+            $('.j_file').click();
+        });
+
+        //选择了新文件
+        $('.j_file').change(function(){
+            //如果文件为空
+            if($(this).val() == ''){
+                return;
+            }
+            $('#submitForm').ajaxSubmit({
+                type:'post',
+                dataType:'json',
+                success:function(result){
+                    //请求成功后的操作
+
+                    //并且清空原文件，不然选择相同文件不能再次传
+                    $('.j_file').val('');
+                },
+                error:function(){
+                    //并且清空原文件，不然选择相同文件不能再次传
+                    $('.j_file').val('');
+                }
+            });
+        })
+    </script>
+</body>
+</html>
